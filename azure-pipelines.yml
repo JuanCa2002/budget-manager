@@ -46,11 +46,9 @@ steps:
 - task: SqlAzureDacpacDeployment@1
   inputs:
     azureSubscription: 'Azure subscription 1(71b789c4-4ffe-4a58-952e-96a10db8f9cf)'
-    AuthenticationType: 'server'
+    AuthenticationType: 'aadAuthenticationIntegrated'
     ServerName: 'budgetmanagerdbserver.database.windows.net'
     DatabaseName: 'BudgetManager_db'
-    SqlUsername: 'CloudSA20a6c14c'
-    SqlPassword: '$(SQL_PASSWORD)'
     deployType: 'DacpacTask'
     DeploymentAction: 'Publish'
     DacpacFile: '$(Build.ArtifactStagingDirectory)/db/DB.dacpac'
