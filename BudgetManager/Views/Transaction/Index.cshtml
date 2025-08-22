@@ -1,0 +1,15 @@
+﻿@using BudgetManager.Models.Dtos
+@using BudgetManager.Models.Enums
+@model TransactionReportDetail
+
+@{
+    ViewData["Title"] = "Reporte Diario";
+}
+
+<partial name="_Submenu" model="TransactionsSubmenu.Daily"></partial>
+
+<div class="my-3">
+    <a asp-action="Create" class="btn btn-success">Crear Nueva Transacción</a>
+</div>
+
+<partial name="_TransactionsDetailReport"></partial>

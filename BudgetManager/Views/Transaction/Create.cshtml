@@ -1,0 +1,77 @@
+﻿@using BudgetManager.Models.Enums
+@using BudgetManager.Models.ViewModels
+@model TransactionCreateViewModel
+
+@{
+    ViewData["Title"] = "Crear Transacción";
+}
+
+<h1>Crear Transacción</h1>
+<h5>Una transacción te permite indicar tus ingresos y egresos.</h5>
+
+<!-- Transaction Form -->
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <!-- Transaction Date Field -->
+    <div class="mb-3">
+        <label asp-for="TransactionDate" class="form-label"></label>
+        <input asp-for="TransactionDate" class="form-control"/>
+        <span asp-validation-for="TransactionDate" class="text-danger"></span>
+    </div>
+
+    <!-- Account Field -->
+    <div class="mb-3">
+        <label asp-for="AccountId" class="form-label"></label>
+        <select asp-for="AccountId" class="form-select" asp-items="Model.Accounts"></select>
+        <span asp-validation-for="AccountId" class="text-danger"></span>
+    </div>
+
+    <!-- Transaction Field -->
+    <div class="mb-3">
+        <label asp-for="TransactionTypeId" class="form-label"></label>
+        <select asp-for="TransactionTypeId" class="form-select" asp-items="@Html.GetEnumSelectList<TransactionType>()"></select>
+        <span asp-validation-for="TransactionTypeId" class="text-danger"></span>
+    </div>
+
+    <!-- Category Field -->
+    <div class="mb-3">
+        <label asp-for="CategoryId" class="form-label"></label>
+        <select asp-for="CategoryId" asp-items="Model.Categories" class="form-select"></select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <!-- Amount Field -->
+    <div class="mb-3">
+        <label asp-for="Amount" class="form-label"></label>
+        <input asp-for="Amount" class="form-control" />
+        <span asp-validation-for="Amount" class="text-danger"></span>
+    </div>
+
+    <!-- Note Field -->
+    <div class="mb-3">
+        <label asp-for="Note" class="form-label"></label>
+        <textarea rows="3" asp-for="Note" class="form-control"></textarea>
+        <span asp-validation-for="Note" class="text-danger"></span>
+    </div>
+
+    <!-- Send and Cancel Actions -->
+    <button type="submit" class="btn btn-primary">Enviar</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"></partial>
+    <script src="~/js/transactionForm.js" asp-append-version="true"></script>
+    
+    <script>
+        const targetUrl = '@Url.Action("GetAllowedCategories")';
+
+        $(function() {
+            initializeTransactionForm(targetUrl);
+        })
+    </script>
+   
+}
+

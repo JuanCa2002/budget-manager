@@ -1,0 +1,64 @@
+﻿@using BudgetManager.Models.Dtos
+@using BudgetManager.Models.Enums
+@using BudgetManager.Models.ViewModels
+
+@model TransactionReportDetail
+
+@{
+    TotalsSummaryViewModel totalsModel = new()
+    {
+        IncomeBalance = Model.TotalIncomeBalance,
+        OutcomeBalance = Model.TotalOutcomeBalance,
+        TotalBalance = Model.TotalBalance
+    };
+}
+
+<!-- Month Navegator -->
+<partial name="_MonthNavegator" model="@Model.InitialDate"></partial>
+
+<!-- Totals Control -->
+<partial name="_TotalsSummary" model="@totalsModel"></partial>
+
+@if (Model.TransactionsByDate.Count() == 0)
+{
+    <!-- No data -->
+    <h5>No hay datos para mostrar</h5>
+}
+else
+{
+    <!-- Transactions By Date Table -->
+    <table class="table">
+        <tbody>
+            @foreach (var transactionByDate in Model.TransactionsByDate)
+            {
+                <!-- Balances By Day -->
+                <tr id="table-transaction-date-header">
+                    <td colspan="3">
+                        @transactionByDate.TransactionDate.Day
+                        <span class="badge bg-secondary">
+                            @transactionByDate.TransactionDate.ToString("ddd")
+                        </span>
+                    </td>
+                    <td class="active">@transactionByDate.IncomeBalance.ToString("N")</td>
+                    <td class="passive">@transactionByDate.OutcomeBalance.ToString("N")</td>
+                </tr>
+                @foreach (var transaction in transactionByDate.Transactions)
+                {
+                    <!-- Individual Transactions -->
+                    <tr style="vertical-align: middle">
+                        <td>
+                            <a asp-controller="Transaction" asp-action="Edit"
+                               asp-route-id="@transaction.Id" asp-route-urlCallBack="@ViewBag.UrlCallBack">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+                        </td>
+                        <td>@transaction.Category</td>
+                        <td>@transaction.Account</td>
+                        <td class="active">@(transaction.TransactionTypeId.Equals(TransactionType.Income) ? transaction.Amount.ToString("N") : null)</td>
+                        <td class="passive">@(transaction.TransactionTypeId.Equals(TransactionType.Outcome) ? transaction.Amount.ToString("N") : null)</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,112 @@
+﻿@using BudgetManager.Models.ViewModels
+@model IEnumerable<IndexAccountViewModel>
+
+@{
+    ViewData["Title"] = "Cuentas";
+
+    string FormatBalance(decimal balance)
+    {
+        return Math.Abs(balance).ToString("N");
+    }
+
+    string GetBalanceClass(decimal balance)
+    {
+        return balance >= 0 ? "active" : "passive";
+    }
+
+    ConfirmationModalViewModel confirmationModalViewModel = new()
+    {
+        ModalTitle = "Eliminar Registro",
+        ModalTextBody = "¿Está seguro que desea borrar la cuenta ",
+        ActionTarget = "Delete",
+        ControllerTarget = "Account"
+    };
+}
+
+<h1>Mis cuentas</h1>
+
+<a asp-action="Create" class="btn btn-primary">Crear</a>
+
+<div class="container-totales mb-3">
+    <div>
+        <div>
+            <strong>Activos</strong>
+        </div>
+        <div class="active">
+            @FormatBalance(Model.Where(x => x.Balance > 0).Sum(x => x.Balance))
+        </div>
+    </div>
+    <div>
+        <div>
+            <strong>Pasivos</strong>
+        </div>
+        <div class="passive">
+            @FormatBalance(Model.Where(x => x.Balance < 0).Sum(x => x.Balance))
+        </div>
+    </div>
+    <div>
+        <div>
+            <strong>Total</strong>
+        </div>
+        <div>
+            @FormatBalance(Model.Sum(x => x.Balance))
+        </div>
+    </div>
+</div>
+
+<div class="accordion account-accordeon">
+    @foreach(var account in Model)
+    {
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                @{
+                    var id = account.AccountType.Replace(" ", "");
+                    var dataBsTarget = "#" + id;
+                    var balanceAccountClass = GetBalanceClass(account.Balance);
+                }
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="@dataBsTarget" aria-expanded="true" aria-controls="collapseOne">
+                    <span class="me-3">
+                        <span><strong>@account.AccountType</strong></span>
+                        <span class="@balanceAccountClass">@FormatBalance(account.Balance)</span>
+                    </span>
+                </button>
+            </h2>
+            <div id="@id" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <ul class="list-group">
+                        @foreach(var accountItem in account.Accounts)
+                        {
+                            var accountClass = GetBalanceClass(accountItem.Balance);
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between w-25 gap-2">
+                                    <span><a asp-action="Detail" asp-route-id="@accountItem.Id">@accountItem.Name</a></span>
+                                    <div class="d-flex flex-column flex-md-row gap-2 align-items-start">
+                                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@accountItem.Id">
+                                            <i class="bi bi-pencil-fill"></i>
+                                        </a>
+                                        <a  
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop"
+                                            data-id="@accountItem.Id"
+                                            data-name="@accountItem.Name"
+                                            onclick="openConfirmationModal(this)"
+                                            class="btn btn-danger">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <span class="@accountClass">@FormatBalance(accountItem.Balance)</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<partial name="_ConfirmationModal" model="@confirmationModalViewModel" />
+
+@section Scripts {
+    <partial name="_ConfirmationModalScript" model="confirmationModalViewModel" />
+}

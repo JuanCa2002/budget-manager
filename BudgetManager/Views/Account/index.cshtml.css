@@ -1,0 +1,16 @@
+﻿.account-accordeon button {
+    color: black !important;
+    font-size: 20px;
+}
+
+.account-accordeon button > span {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.account-accordeon ul li {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

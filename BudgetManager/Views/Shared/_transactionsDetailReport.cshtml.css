@@ -1,0 +1,7 @@
+﻿#table-transaction-date-header {
+    font-size: 26px !important;
+}
+
+#table-transaction-date-header > td {
+    background-color: lightblue !important;
+}

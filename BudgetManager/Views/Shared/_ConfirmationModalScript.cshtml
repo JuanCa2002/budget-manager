@@ -1,0 +1,17 @@
+﻿@using BudgetManager.Models.ViewModels
+@model ConfirmationModalViewModel
+
+<script>
+    function openConfirmationModal(button) {
+        const id = button.getAttribute("data-id");
+        const name = button.getAttribute("data-name");
+        const body = `@Html.Raw(Model.ModalTextBody)${name != null ? `"${name}"?` : '?'}`;
+
+        // Set dynamic message
+        document.getElementById("confirmationModalBody").textContent = body;
+
+        // Set hidden target id
+        document.getElementById("confirmationModalHiddenId").value = id;
+    }
+</script>
+

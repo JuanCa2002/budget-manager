@@ -1,0 +1,25 @@
+﻿@using BudgetManager.Models.Enums
+@model TransactionsSubmenu
+
+<ul class="nav nav-pills nav-fill mb-3" 
+                            style="--bs-nav-link-color: black !important;
+                                   --bs-nav-link-font-size: 18px;
+                                   --bs-nav-pills-link-active-color: white !important;
+                                   --bs-nav-pills-link-active-bg: black !important;">
+    <li class="nav-item">
+        <a class="nav-link @(Model.Equals(TransactionsSubmenu.Daily) ? "active": null)" asp-action="Index">Diario</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(Model.Equals(TransactionsSubmenu.Weekly) ? "active" : null)" " asp-action="WeeklyReport">Semanal</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(Model.Equals(TransactionsSubmenu.Monthly) ? "active" : null)" " asp-action="MonthlyReport">Mensual</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(Model.Equals(TransactionsSubmenu.Excel) ? "active" : null)" " asp-action="ExcelReport">Excel</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(Model.Equals(TransactionsSubmenu.Calendar) ? "active" : null)" " asp-action="CalendarReport">Calendario</a>
+    </li>
+
+</ul>

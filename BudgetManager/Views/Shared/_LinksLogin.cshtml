@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using BudgetManager.Models.Entities
+
+@inject SignInManager<User> SignInManager
+
+<ul class="navbar-nav">
+    <!-- Register And Login Section -->
+    @if(SignInManager.IsSignedIn(User))
+    {
+      <!-- Profile User Link -->
+      <li class="nav-item">
+          <span class="nav-link text-dark">¡Hola! @User.Identity.Name</span>
+      </li>
+
+      <!-- Log Out Link -->
+      <li class="nav-item">
+          <form class="form-inline" asp-action="LogOut" asp-controller="User">
+              <button type="submit" class="nav-link btn btn-link text-dark">
+                  Cerrar Sesión
+              </button>
+          </form>
+      </li>
+    }
+    else
+    {
+       <!-- Register Link -->
+       <li class="nav-item"> 
+           <a class="nav-link text-dark" asp-action="Register" asp-controller="User">
+               Registro
+           </a>
+       </li>
+
+        <!-- Log In Link -->
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-action="LogIn" asp-controller="User">
+                Iniciar Sesión
+            </a>
+        </li>
+    }
+</ul>

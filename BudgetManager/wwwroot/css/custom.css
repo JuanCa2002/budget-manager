@@ -1,0 +1,22 @@
+﻿#reorderable tr{
+    cursor: move;
+}
+
+.container-totales {
+    display: flex;
+    justify-content: space-around;
+    font-size: 26px;
+    text-align: center;
+}
+
+.active {
+    color: green !important;
+}
+
+a.active {
+    color: white !important;
+}
+
+.passive {
+    color: red !important;
+}

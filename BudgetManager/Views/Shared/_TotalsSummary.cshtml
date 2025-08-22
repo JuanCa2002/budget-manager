@@ -1,0 +1,40 @@
+﻿@using BudgetManager.Models.ViewModels
+
+@model TotalsSummaryViewModel
+
+<!-- Balance Summary -->
+<div class="container-totales my-4">
+
+    <!-- Income Balance -->
+    <div>
+        <div>
+            <strong>Ingresos</strong>
+        </div>
+        <div class="active">
+            @Model.IncomeBalance.ToString("N")
+        </div>
+    </div>
+
+    <!-- Outcome Balance -->
+    <div>
+        <div>
+            <strong>Egresos</strong>
+        </div>
+        <div class="passive">
+            @Model.OutcomeBalance.ToString("N")
+        </div>
+    </div>
+
+    <!-- Total Balance -->
+    <div>
+        <div>
+            <strong>Total</strong>
+        </div>
+        <div>
+            @Model.TotalBalance.ToString("N")
+        </div>
+    </div>
+</div>
+
+<!-- Divisor Line -->
+<hr class="my-3">

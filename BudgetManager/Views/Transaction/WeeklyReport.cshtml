@@ -1,0 +1,63 @@
+﻿@using BudgetManager.Models.Enums
+@using BudgetManager.Models.ViewModels
+
+@model WeeklyReportViewModel
+@{
+    ViewData["Title"] = "Reporte Semanal";
+
+    string FormatDate(DateTime date)
+    {
+        return date.ToString("MM.dd");
+    }
+
+    TotalsSummaryViewModel totalsModel = new()
+    {
+        IncomeBalance = Model.IncomeBalance,
+        OutcomeBalance = Model.OutcomeBalance,
+        TotalBalance = Model.TotalBalance
+    };
+}
+
+<!-- Submenu Reports -->
+<partial name="_Submenu" model="TransactionsSubmenu.Weekly"></partial>
+
+<!-- Month Navegator -->
+<partial name="_MonthNavegator" model="@Model.ReferenceDate"></partial>
+
+<!-- Totals Control -->
+<partial name="_TotalsSummary" model="totalsModel"></partial>
+
+<!-- Weekly Transactions Table -->
+<table class="table" style="font-size:20px;">
+    <thead>
+        <tr>
+            <th>Semana</th>
+            <th style="text-align: right">Ingresos</th>
+            <th style="text-align: right">Egresos</th>
+        </tr>
+    </thead>
+    @foreach(var transactionByWeek in Model.TransactionsByWeek)
+    {
+        <tr>
+            <!-- Transaction Week -->
+            <td>
+                <a style="text-decoration: none;" asp-action="Index"
+                 asp-route-month="@Model.ReferenceDate.Month" 
+                 asp-route-year="@Model.ReferenceDate.Year">
+                    @FormatDate(transactionByWeek.InitialDate) ~ 
+                    @FormatDate(transactionByWeek.FinalDate)
+                </a>
+            </td>
+
+            <!-- Transaction Week Income Balance -->
+            <td class="active" style="text-align: right">
+                @transactionByWeek.IncomeBalance.ToString("N")
+            </td>
+
+            <!-- Transaction Week Outcome Balance -->
+            <td class="passive" style="text-align: right">
+                @transactionByWeek.OutcomeBalance.ToString("N")
+            </td>
+        </tr>
+    }
+</table>

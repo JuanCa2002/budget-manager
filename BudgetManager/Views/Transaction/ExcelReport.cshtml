@@ -1,0 +1,83 @@
+﻿@using BudgetManager.Models.Enums
+@{
+    ViewData["Title"] = "Reporte Excel";
+
+    var today = DateTime.Today;
+    var oneMonthAgo = today.AddMonths(-1);
+    var currentMonth = today.Month;
+    var currentYear = today.Year;
+    var previousMonth = oneMonthAgo.Month;
+    var previousYear = oneMonthAgo.Year;
+}
+
+<partial name="_Submenu" model="TransactionsSubmenu.Excel"></partial>
+
+<h1>Exportar Transacciones a Excel</h1>
+
+<!-- Export Current Month -->
+<div class="d-flex flex-row align-items-center mb-3" style="width:35%">
+    <div class="flex-grow-1 me-2">
+        <a asp-action="ExportExcelByMonth"
+           asp-route-month="@currentMonth"
+           asp-route-year="@currentYear"
+           class="btn btn-success w-100">
+            Exportar Mes Actual
+        </a>
+    </div>
+    <div style="white-space: nowrap">
+        <span class="text-danger">=></span> @today.ToString("MMMM yyyy")
+    </div>
+</div>
+
+<!-- Export Previous Month -->
+<div class="d-flex flex-row align-items-center mb-3" style="width:35%">
+    <div class="flex-grow-1 me-2">
+        <a asp-action="ExportExcelByMonth"
+           asp-route-month="@previousMonth"
+           asp-route-year="@previousYear"
+           class="btn btn-success w-100">
+            Exportar Mes Anterior
+        </a>
+    </div>
+    <div style="white-space: nowrap">
+        <span class="text-danger">=></span> @oneMonthAgo.ToString("MMMM yyyy")
+    </div>
+</div>
+
+<!-- Export Current Year -->
+<div class="d-flex flex-row align-items-center mb-3" style="width:32%">
+    <div class="flex-grow-1 me-3">
+        <a asp-action="ExportExcelByYear"
+           asp-route-year="@currentYear"
+           class="btn btn-success w-100">
+            Exportar Año Actual
+        </a>
+    </div>
+    <div style="white-space: nowrap">
+        <span class="text-danger">=></span> @currentYear
+    </div>
+</div>
+
+<!-- Export Previous Year -->
+<div class="d-flex flex-row align-items-center mb-3" style="width:32%">
+    <div class="flex-grow-1 me-3">
+        <a asp-action="ExportExcelByYear"
+           asp-route-year="@(currentYear - 1)"
+           class="btn btn-success w-100">
+            Exportar Año Anterior
+        </a>
+    </div>
+    <div style="white-space: nowrap">
+        <span class="text-danger">=></span> @(currentYear - 1)
+    </div>
+</div>
+
+<!-- Export All -->
+<div class="d-flex flex-row align-items-center mb-3" style="width:26%">
+    <div class="flex-grow-1 me-2">
+        <a asp-action="ExportExcelAll"
+           class="btn btn-success w-100">
+            Exportar Todo
+        </a>
+    </div>
+</div>

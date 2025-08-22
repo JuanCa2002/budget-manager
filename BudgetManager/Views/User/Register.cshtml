@@ -1,0 +1,55 @@
+﻿@using BudgetManager.Models.ViewModels
+@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Registro";
+}
+
+<h1>Registrate</h1>
+
+<div class="card">
+    <div class="card-body">
+        <!-- New Register Register Form -->
+        <form asp-action="Register">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Name Field -->
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" type="text" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <!-- Last Name Field -->
+            <div class="mb-3">
+                <label asp-for="LastName" class="form-label"></label>
+                <input asp-for="LastName" class="form-control" type="text" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <!-- Email Field -->
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" type="email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <!-- Password Field -->
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control" type="password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <!-- Register And Log In Actions -->
+            <button type="submit" class="btn btn-success">Registrarse</button>
+            <a asp-action="LogIn" class="btn btn-primary">Iniciar Sesión</a>
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+   <partial name="_ValidationScriptsPartial"></partial>
+}

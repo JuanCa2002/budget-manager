@@ -1,0 +1,11 @@
+﻿@using BudgetManager.Models.Dtos
+@using BudgetManager.Models.Enums
+@model TransactionReportDetail
+
+@{
+    ViewData["Title"] = "Movimientos Cuenta";
+}
+
+<h1>Movimientos @ViewBag.Account</h1>
+
+<partial name="_TransactionsDetailReport"></partial>
