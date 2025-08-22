@@ -49,7 +49,7 @@ steps:
     ConnectionString: '$(connectionstring)'
     deployType: 'DacpacTask'
     DeploymentAction: 'Publish'
-    DacpacFile: '$(Build.ArtifactStagingDirectory)/db/**/*.dacpac'
+    DacpacFile: '$(Build.ArtifactStagingDirectory)/db/DB.dacpac'
     IpDetectionMethod: 'AutoDetect'
 
 
@@ -70,4 +70,4 @@ steps:
     azureSubscription: 'Azure subscription 1(71b789c4-4ffe-4a58-952e-96a10db8f9cf)'
     appType: 'webApp'
     WebAppName: 'BudgetManager'
-    packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
