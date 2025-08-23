@@ -47,7 +47,7 @@ steps:
   inputs:
     azureSubscription: 'Azure subscription 1(71b789c4-4ffe-4a58-952e-96a10db8f9cf)'
     AuthenticationType: 'connectionString'
-    ConnectionString: '$(connectionstring)'
+    ConnectionString: 'Server=tcp:budgetmanagerdbserver.database.windows.net;Authentication=Active Directory Default;Database=BudgetManager_db;'
     deployType: 'DacpacTask'
     DeploymentAction: 'Publish'
     DacpacFile: '$(Build.ArtifactStagingDirectory)/db/DB.dacpac'
