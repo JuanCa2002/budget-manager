@@ -46,11 +46,13 @@ steps:
 - task: SqlAzureDacpacDeployment@1
   inputs:
     azureSubscription: 'Azure subscription 1(71b789c4-4ffe-4a58-952e-96a10db8f9cf)'
-    AuthenticationType: 'connectionString'
-    ConnectionString: 'Server=tcp:budgetmanagerdbserver.database.windows.net;Authentication=Active Directory Default;Database=BudgetManager_db;'
+    AuthenticationType: 'servicePrincipal'
+    ServerName: 'budgetmanagerdbserver.database.windows.net'
+    DatabaseName: 'BudgetManager_db'
     deployType: 'DacpacTask'
     DeploymentAction: 'Publish'
     DacpacFile: '$(Build.ArtifactStagingDirectory)/db/DB.dacpac'
+    AdditionalArguments: ''
     IpDetectionMethod: 'AutoDetect'
     DeleteFirewallRule: True
 
